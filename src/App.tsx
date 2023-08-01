@@ -31,6 +31,12 @@ export function App() {
   const loadTransactionsByEmployee = useCallback(
     async (employeeId: string) => {
       paginatedTransactionsUtils.invalidateData()
+
+      //The line below fixes another bug where if you filter by employee and
+      //then follow with another uncached employee, it would not show as loading
+      //and instead show the first employee results until it loads.
+      transactionsByEmployeeUtils.invalidateData()
+
       await transactionsByEmployeeUtils.fetchById(employeeId)
     },
     [paginatedTransactionsUtils, transactionsByEmployeeUtils]
