@@ -21,8 +21,10 @@ export function usePaginatedTransactions(): PaginatedTransactionsResult {
       if (response === null || previousResponse === null) {
         return response
       }
+      // console.log("Comning from fetchall")
+      // console.log(response)
 
-      return { data: response.data, nextPage: response.nextPage }
+      return { data: paginatedTransactions.data.concat(response.data), nextPage: response.nextPage }
     })
   }, [fetchWithCache, paginatedTransactions])
 
